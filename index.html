@@ -3,10 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
-<title>Dojoru プライバシーポリシー(準備中)</title>
+<title>Dojoru(道場る)| AWS認定試験(SAP-C02)対策アプリ</title>
+<meta name="description" content="Dojoruは、AWS認定試験 SAP-C02 対策の問題演習Androidアプリです。誤答理由の記録・SRS復習・カテゴリ別演習で、すきま時間の学習を効率化します。">
 <style>
-  :root { --ink: #171A20; --muted: #5C5E62; --bg: #FFFFFF; }
+  :root {
+    --primary: #3E6AE1;
+    --ink: #171A20;
+    --ink-secondary: #393C41;
+    --muted: #5C5E62;
+    --border: #D0D1D2;
+    --bg: #FFFFFF;
+    --surface-alt: #F4F4F4;
+  }
   * { box-sizing: border-box; }
   body {
     margin: 0;
@@ -16,19 +24,178 @@
     line-height: 1.85;
   }
   main {
-    max-width: 640px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 48px 20px 80px;
+  }
+  header.hero {
+    margin-bottom: 40px;
+  }
+  .kicker {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 8px 0 4px;
+  }
+  .lead {
+    color: var(--ink-secondary);
+    font-size: 15px;
+  }
+  .cta {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background: var(--surface-alt);
+    color: var(--muted);
+    font-size: 13px;
+    border: 1px solid var(--border);
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 44px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  .feature + .feature { margin-top: 20px; }
+  .note {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
     text-align: center;
   }
-  h1 { font-size: 20px; }
-  p { color: var(--muted); }
+  a { color: var(--primary); }
 </style>
 </head>
 <body>
 <main>
-  <h1>プライバシーポリシー(準備中)</h1>
-  <p>本ページは現在改訂作業のため一時的に非公開としています。改訂完了後、改めて公開いたします。</p>
+  <header class="hero">
+    <p class="kicker">AWS認定試験(SAP-C02)対策</p>
+    <h1>Dojoru(道場る)</h1>
+    <p class="lead">すきま時間で、解いて、間違えた理由を1タップで記録して、弱点だけを効率よく復習する。<br>それだけに絞ったシンプルな問題演習アプリです。</p>
+    <span class="cta">Google Playで手に入れよう — 近日公開</span>
+  </header>
+
+  <h2>Dojoruとは</h2>
+  <p>
+    Dojoruは、SAP-C02の学習を「解く→間違えた理由を記録する→弱点を復習する」というサイクルに絞り込んだ、
+    Android向けの問題演習アプリです。広告表示や複雑な初期設定を挟まず、起動してすぐ演習に入れることを
+    重視して設計しています。学習データは端末内に保存され、スキマ時間にオフラインでも利用できます。
+  </p>
+
+  <h2>主な特長</h2>
+
+  <div class="feature">
+    <h3>誤答理由を1タップで記録し、タグ別に弱点を見える化</h3>
+    <p>
+      間違えた問題には「知識不足」「条件見落とし」「2択で誤った選択」といった理由をその場で1タップ選択できます。
+      この記録をIAM・ネットワーキング・移行戦略などのカテゴリ別に集計し、弱点分析画面に反映します。
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>忘れた頃に復習が来る、SRS(間隔反復)の復習キュー</h3>
+    <p>
+      Leitner方式のSRS(box0〜4、復習間隔0/1/3/7/14日)を採用。正解すると復習間隔が延び、間違えると
+      やり直しのキューに戻ります。ホーム画面には「今日の復習数」が表示され、まとめてやらされる負担を
+      抑える設計です。
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>全選択肢に解説、「ひっかけの種明かし」つき</h3>
+    <p>
+      正解の選択肢だけでなく、不正解の選択肢にもなぜ違うのかの解説が付きます。もっともらしく見える
+      不正解の選択肢には、その"ひっかけ"の構造を言葉で説明する解説を添えています。
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>カテゴリ別・ランダム・弱点集中の3つの出題モード</h3>
+    <p>
+      学習ドメイン(組織・セキュリティ、新しいソリューションの設計、既存ソリューションの継続的改善、
+      ソリューションの移行と現代化)の配点比率を踏まえたカテゴリ別演習に加え、ランダム演習、正答率の
+      低い分野に絞った弱点集中演習を選べます。
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>弱点が称号になる「伸びしろ番長」</h3>
+    <p>
+      タグ別・誤答理由別の弱点データをもとに、ちょっと笑える"二つ名"型の称号が表示されます。
+      もっとも伸びしろのある分野は「あなたの伸びしろ番長」として画面上部に表示され、タップで由来と
+      克服のための出題につながります。称号はご自身の画面にだけ表示され、共有するかどうか(X〔旧Twitter〕
+      への投稿)はご自身の操作で選べます。学習データそのものが外部に送信されることはありません。
+    </p>
+  </div>
+
+  <h2>こんな方におすすめです</h2>
+  <ul>
+    <li>SAP-C02の受験を控えており、通勤・通学などのすきま時間で問題演習を積みたい方</li>
+    <li>間違えた問題を「なんとなく復習」ではなく、間違えた理由ごとに整理して復習したい方</li>
+    <li>広告表示や複雑な設定に煩わされず、シンプルに演習だけしたい方</li>
+  </ul>
+
+  <h2>現在の提供状況</h2>
+  <ul>
+    <li>対応OS: Android</li>
+    <li>提供形態: v1(初回リリース版)。現時点では追加課金なく全問をご利用いただけます。広告表示もありません</li>
+    <li>通信: 学習・演習は端末内保存のデータで完結し、オフラインでもご利用いただけます</li>
+    <li>収録問題: v1では、本試験1回分に相当する問題を、出題ドメインの配点比率に沿って収録する予定です</li>
+  </ul>
+  <p class="note">現在準備中(近日公開)です。公開後、Google Playのリンクを本ページに掲載します。</p>
+
+  <h2>プライバシーポリシー</h2>
+  <p>Dojoruのプライバシーポリシーは <a href="./privacy.html">こちら</a> でご確認いただけます。</p>
+
+  <h2>Dojoruについて(免責事項)</h2>
+  <ul>
+    <li>Dojoruは、Amazon Web Services, Inc. とは無関係の非公式の学習教材です。「AWS」および関連する商標は Amazon Web Services, Inc. またはその関連会社の商標です。</li>
+    <li>Dojoruは、Tutorials Dojo社が提供する「AWS SAP-C02 Dojo Exam」その他の同社製品とは無関係の、独立した別プロダクトです。名称に共通する語(Dojo/道場)がありますが、両者の間に提携・許諾・協力関係はありません。</li>
+    <li>出題内容はAWS認定試験の公式ガイド・公開情報に基づき独自に作成したものであり、本試験問題の再現・市販問題集の複製ではありません。</li>
+  </ul>
+
+  <h2>お問い合わせ</h2>
+  <p>
+    お問い合わせ先: <span class="email" data-user="dojoru.admin" data-domain="gmail.com">(メールアドレスを表示するにはJavaScriptを有効にしてください)</span>
+  </p>
+
+  <footer>
+    Dojoru は Amazon Web Services, Inc. とは無関係の非公式教材です。
+  </footer>
 </main>
+<script>
+  // 収集ボット対策: HTMLソースにメールアドレスを平文で含めず、実行時に組み立てて表示する。
+  document.querySelectorAll('.email').forEach(function (el) {
+    var address = el.getAttribute('data-user') + '@' + el.getAttribute('data-domain');
+    var link = document.createElement('a');
+    link.href = 'mailto:' + address;
+    link.textContent = address;
+    el.textContent = '';
+    el.appendChild(link);
+  });
+</script>
 </body>
 </html>
