@@ -5,15 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dojoru(道場る)| AWS資格試験(SAP-C02)対策アプリ(非公式)</title>
 <meta name="description" content="Dojoruは、AWS資格試験 SAP-C02 対策の問題演習Androidアプリです(非公式)。誤答理由の記録・SRS復習・カテゴリ別演習で、すきま時間の学習を効率化します。">
+<link rel="icon" type="image/png" href="./images/icon-512.png">
+<link rel="apple-touch-icon" href="./images/icon-512.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dojoru(道場る)| AWS資格試験(SAP-C02)対策アプリ(非公式)">
+<meta property="og:description" content="解いて、間違えた理由を1タップで記録して、弱点だけを効率よく復習する。AWS資格試験 SAP-C02 対策の問題演習Androidアプリ(非公式)。">
+<meta property="og:url" content="https://jk2014jp.github.io/dojoru-public/">
+<meta property="og:image" content="https://jk2014jp.github.io/dojoru-public/images/screenshot-home.png">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --primary: #3E6AE1;
+    --primary-soft: #E9EFFC;
     --ink: #171A20;
     --ink-secondary: #393C41;
     --muted: #5C5E62;
     --border: #D0D1D2;
+    --border-soft: #E4E5E6;
     --bg: #FFFFFF;
     --surface-alt: #F4F4F4;
+    --radius: 4px;
+    --shadow-sm: 0 1px 3px rgba(23, 26, 32, 0.07);
+    --shadow-lg: 0 18px 44px rgba(23, 26, 32, 0.16);
   }
   * { box-sizing: border-box; }
   body {
@@ -23,167 +36,490 @@
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", Meiryo, sans-serif;
     line-height: 1.85;
   }
-  main {
-    max-width: 720px;
+  img { max-width: 100%; }
+  a { color: var(--primary); }
+
+  /* ---------- レイアウト ---------- */
+  .wrap {
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 48px 20px 80px;
+    padding: 0 20px;
   }
-  header.hero {
-    margin-bottom: 40px;
+  .wrap--narrow { max-width: 720px; }
+  section { padding: 56px 0; }
+  section + section { padding-top: 0; }
+  .band {
+    background: var(--surface-alt);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 56px 0;
   }
+
+  /* ---------- 見出し ---------- */
   .kicker {
     color: var(--primary);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.08em;
+    margin: 0;
   }
   h1 {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
-    margin: 8px 0 4px;
-  }
-  .lead {
-    color: var(--ink-secondary);
-    font-size: 15px;
-  }
-  .cta {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    background: var(--surface-alt);
-    color: var(--muted);
-    font-size: 13px;
-    border: 1px solid var(--border);
+    margin: 6px 0 8px;
+    letter-spacing: 0.01em;
   }
   h2 {
     font-size: 18px;
     font-weight: 700;
-    margin-top: 44px;
+    margin: 0 0 20px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--border);
   }
   h3 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
-    margin-top: 24px;
-    margin-bottom: 6px;
+    margin: 0 0 8px;
     color: var(--ink);
+    line-height: 1.6;
   }
   p { margin: 8px 0; }
   ul { padding-left: 20px; }
   li { margin-bottom: 6px; }
-  .feature + .feature { margin-top: 20px; }
+  .lead {
+    color: var(--ink-secondary);
+    font-size: 16px;
+    margin: 0;
+  }
   .note {
     color: var(--muted);
     font-size: 13px;
   }
+
+  /* ---------- ヒーロー ---------- */
+  .hero {
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--surface-alt) 100%);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 52px 0 56px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 48px;
+    align-items: center;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0 0;
+  }
+  .brand img {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    flex: none;
+  }
+  .brand h1 { margin: 0; }
+  .hero .lead { margin-top: 14px; }
+  .cta {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    background: #FFFFFF;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+  .x-link {
+    display: inline-block;
+    margin: 14px 0 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .x-link:hover { color: var(--primary); border-bottom-color: var(--primary); }
+  .facts {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 20px 0 0;
+  }
+  .facts li {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-secondary);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3px 10px;
+  }
+
+  /* ---------- 端末フレーム ---------- */
+  .hero-shot {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-shot::before {
+    content: "";
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 340px;
+    height: 340px;
+    margin-left: -170px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    z-index: 0;
+  }
+  .phone {
+    position: relative;
+    z-index: 1;
+    width: 268px;
+    max-width: 100%;
+    padding: 7px;
+    border-radius: 16px;
+    background: var(--ink);
+    box-shadow: var(--shadow-lg);
+  }
+  .phone--sm { width: 240px; }
+  .phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: #FFFFFF;
+  }
+
+  /* ---------- 3ステップ ---------- */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .step {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 18px 20px 20px;
+  }
+  .step-num {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 2px 0 4px;
+  }
+  .step p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  /* ---------- 特長セクション ---------- */
+  .features { margin-top: 8px; }
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding: 36px 0;
+  }
+  .feature + .feature { border-top: 1px solid var(--border-soft); }
+  .feature-body p { font-size: 15px; color: var(--ink-secondary); }
+  .feature-body p:first-of-type { margin-top: 0; }
+  .feature-media { order: 2; min-width: 0; }
+  .feature--reverse .feature-media { order: -1; }
+  .feature-media figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  figcaption {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+    text-align: center;
+  }
+  .feature-extra {
+    order: 3;
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--border);
+  }
+  .feature-extra figure {
+    margin: 0 auto;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---------- フッター ---------- */
   footer {
     margin-top: 48px;
-    padding-top: 16px;
+    padding: 16px 0 40px;
     border-top: 1px solid var(--border);
     color: var(--muted);
     font-size: 12px;
     text-align: center;
   }
-  a { color: var(--primary); }
+
+  /* ---------- レスポンシブ ---------- */
+  @media (max-width: 900px) {
+    .hero { padding: 40px 0 44px; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .hero-shot::before { width: 280px; height: 280px; margin-left: -140px; }
+    h1 { font-size: 26px; }
+    .lead { font-size: 15px; }
+    .x-link { display: block; margin: 10px 0 0; }
+    .feature { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 32px 0; }
+    .feature-media, .feature--reverse .feature-media { order: 2; }
+    .steps { grid-template-columns: minmax(0, 1fr); }
+    section { padding: 44px 0; }
+    .band { padding: 44px 0; }
+  }
+  @media (max-width: 420px) {
+    .phone { width: 240px; padding: 6px; }
+    .phone--sm { width: 220px; }
+    .brand img { width: 48px; height: 48px; }
+  }
 </style>
 </head>
 <body>
 <main>
+
   <header class="hero">
-    <p class="kicker">AWS資格試験(SAP-C02)対策・非公式</p>
-    <h1>Dojoru(道場る)</h1>
-    <p class="lead">すきま時間で、解いて、間違えた理由を1タップで記録して、弱点だけを効率よく復習する。<br>それだけに絞ったシンプルな問題演習アプリです。</p>
-    <span class="cta">Google Playで手に入れよう — 近日公開</span>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">AWS資格試験(SAP-C02)対策・非公式</p>
+        <div class="brand">
+          <img src="./images/icon-512.png" alt="Dojoruのアプリアイコン" width="512" height="512" fetchpriority="high">
+          <h1>Dojoru(道場る)</h1>
+        </div>
+        <p class="lead">すきま時間で、解いて、間違えた理由を1タップで記録して、弱点だけを効率よく復習する。<br>それだけに絞ったシンプルな問題演習アプリです。</p>
+        <span class="cta">Google Playで手に入れよう — 近日公開</span>
+        <a class="x-link" href="https://x.com/dojoru2026" target="_blank" rel="noopener noreferrer">最新情報は X (@dojoru2026) でも発信中 →</a>
+        <ul class="facts">
+          <li>Android</li>
+          <li>オフラインで演習できる</li>
+          <li>学習データは端末内に保存</li>
+          <li>全選択肢に解説</li>
+        </ul>
+      </div>
+      <div class="hero-shot">
+        <div class="phone">
+          <img src="./images/screenshot-home.png" alt="Dojoruのホーム画面。ランダム10問のクイック演習、今日の復習8問を始めるSRS復習キュー、カテゴリ別演習と伸びしろ番長のカードが並んでいる" width="1080" height="2400" fetchpriority="high">
+        </div>
+      </div>
+    </div>
   </header>
 
-  <h2>Dojoruとは</h2>
-  <p>
-    Dojoruは、SAP-C02の学習を「解く→間違えた理由を記録する→弱点を復習する」というサイクルに絞り込んだ、
-    Android向けの問題演習アプリです。起動してすぐ演習に入れることを重視して設計しています。
-    学習データは端末内に保存され、スキマ時間にオフラインでも利用できます。
-  </p>
+  <section>
+    <div class="wrap wrap--narrow">
+      <h2>Dojoruとは</h2>
+      <p>
+        Dojoruは、SAP-C02の学習を「解く→間違えた理由を記録する→弱点を復習する」というサイクルに絞り込んだ、
+        Android向けの問題演習アプリです。起動してすぐ演習に入れることを重視して設計しています。
+        学習データは端末内に保存され、スキマ時間にオフラインでも利用できます。
+      </p>
+    </div>
+    <div class="wrap">
+      <div class="steps">
+        <div class="step">
+          <p class="step-num">STEP 1</p>
+          <p class="step-title">解く</p>
+          <p>ホームから1タップでランダム10問。カテゴリ別・弱点集中も選べます。</p>
+        </div>
+        <div class="step">
+          <p class="step-num">STEP 2</p>
+          <p class="step-title">間違えた理由を記録する</p>
+          <p>不正解のときは「知識不足」「条件見落とし」などをその場で1タップ。</p>
+        </div>
+        <div class="step">
+          <p class="step-num">STEP 3</p>
+          <p class="step-title">弱点を復習する</p>
+          <p>SRSが復習の日を決め、ホームに「今日の復習数」として並びます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <h2>主な特長</h2>
+  <section class="band">
+    <div class="wrap">
+      <h2>主な特長</h2>
+      <p class="note">以下の画像はいずれも実際のアプリ画面です(開発中の画面のため、実際の表示は変わる場合があります)。</p>
 
-  <div class="feature">
-    <h3>誤答理由を1タップで記録し、タグ別に弱点を見える化</h3>
-    <p>
-      間違えた問題には「知識不足」「条件見落とし」「2択で誤った選択」といった理由をその場で1タップ選択できます。
-      この記録をIAM・ネットワーキング・移行戦略などのカテゴリ別に集計し、弱点分析画面に反映します。
-    </p>
-  </div>
+      <div class="features">
 
-  <div class="feature">
-    <h3>忘れた頃に復習が来る、SRS(間隔反復)の復習キュー</h3>
-    <p>
-      Leitner方式のSRS(box0〜4、復習間隔0/1/3/7/14日)を採用。正解すると復習間隔が延び、間違えると
-      やり直しのキューに戻ります。ホーム画面には「今日の復習数」が表示され、まとめてやらされる負担を
-      抑える設計です。
-    </p>
-  </div>
+        <div class="feature">
+          <div class="feature-body">
+            <h3>誤答理由を1タップで記録し、タグ別に弱点を見える化</h3>
+            <p>
+              間違えた問題には「知識不足」「条件見落とし」「2択で誤った選択」といった理由をその場で1タップ選択できます。
+              この記録をIAM・ネットワーキング・移行戦略などのカテゴリ別に集計し、弱点分析画面に反映します。
+            </p>
+          </div>
+          <div class="feature-media">
+            <figure>
+              <img class="shot" src="./images/detail-mistake-reason.png" alt="不正解のあとに表示される「なぜ間違えた?(1タップで記録)」の選択UI。知識不足・条件見落とし・2択で誤選択のボタンと、今回はスキップのリンクが並ぶ" width="1015" height="352" loading="lazy" decoding="async">
+              <figcaption>不正解のあとに表示される記録UI。押さずにスキップもできます</figcaption>
+            </figure>
+          </div>
+        </div>
 
-  <div class="feature">
-    <h3>全選択肢に解説、「ひっかけの種明かし」つき</h3>
-    <p>
-      正解の選択肢だけでなく、不正解の選択肢にもなぜ違うのかの解説が付きます。もっともらしく見える
-      不正解の選択肢には、その"ひっかけ"の構造を言葉で説明する解説を添えています。
-    </p>
-  </div>
+        <div class="feature feature--reverse">
+          <div class="feature-body">
+            <h3>忘れた頃に復習が来る、SRS(間隔反復)の復習キュー</h3>
+            <p>
+              Leitner方式のSRS(box0〜4、復習間隔0/1/3/7/14日)を採用。正解すると復習間隔が延び、間違えると
+              やり直しのキューに戻ります。ホーム画面には「今日の復習数」が表示され、まとめてやらされる負担を
+              抑える設計です。
+            </p>
+          </div>
+          <div class="feature-media">
+            <figure>
+              <img class="shot" src="./images/detail-srs.png" alt="ホーム画面のSRS復習キューのカード。「今日の復習 8問を始める」と表示されている" width="1005" height="294" loading="lazy" decoding="async">
+              <figcaption>ホーム上部の復習キュー。その日ぶんだけを1タップで開始</figcaption>
+            </figure>
+          </div>
+        </div>
 
-  <div class="feature">
-    <h3>カテゴリ別・ランダム・弱点集中の3つの出題モード</h3>
-    <p>
-      学習ドメイン(組織・セキュリティ、新しいソリューションの設計、既存ソリューションの継続的改善、
-      ソリューションの移行と現代化)の配点比率を踏まえたカテゴリ別演習に加え、ランダム演習、正答率の
-      低い分野に絞った弱点集中演習を選べます。
-    </p>
-  </div>
+        <div class="feature">
+          <div class="feature-body">
+            <h3>全選択肢に解説、「ひっかけの種明かし」つき</h3>
+            <p>
+              正解の選択肢だけでなく、不正解の選択肢にもなぜ違うのかの解説が付きます。もっともらしく見える
+              不正解の選択肢には、その"ひっかけ"の構造を言葉で説明する解説を添えています。
+            </p>
+          </div>
+          <div class="feature-media">
+            <figure>
+              <div class="phone phone--sm">
+                <img src="./images/screenshot-trapnote.png" alt="回答後の画面。不正解の表示、誤答理由の記録UI、解法の考え方、そして「ひっかけの種明かし」のカードが縦に並んでいる" width="1080" height="2400" loading="lazy" decoding="async">
+              </div>
+              <figcaption>解法の考え方と「ひっかけの種明かし」を回答直後に確認できます</figcaption>
+            </figure>
+          </div>
+        </div>
 
-  <div class="feature">
-    <h3>弱点が称号になる「伸びしろ番長」</h3>
-    <p>
-      タグ別・誤答理由別の弱点データをもとに、ちょっと笑える"二つ名"型の称号が表示されます。
-      もっとも伸びしろのある分野は「あなたの伸びしろ番長」として画面上部に表示され、タップで由来と
-      克服のための出題につながります。称号はご自身の画面にだけ表示され、共有するかどうか(X〔旧Twitter〕
-      への投稿)はご自身の操作で選べます。学習データそのものが外部に送信されることはありません。
-    </p>
-  </div>
+        <div class="feature feature--reverse">
+          <div class="feature-body">
+            <h3>カテゴリ別・ランダム・弱点集中の3つの出題モード</h3>
+            <p>
+              学習ドメイン(組織・セキュリティ、新しいソリューションの設計、既存ソリューションの継続的改善、
+              ソリューションの移行と現代化)の配点比率を踏まえたカテゴリ別演習に加え、ランダム演習、正答率の
+              低い分野に絞った弱点集中演習を選べます。
+            </p>
+          </div>
+          <div class="feature-media">
+            <figure>
+              <div class="phone phone--sm">
+                <img src="./images/screenshot-quiz.png" alt="出題画面。学習ドメインのラベル、シナリオ本文、設問と4つの選択肢が表示されている" width="1080" height="2400" loading="lazy" decoding="async">
+              </div>
+              <figcaption>出題画面。どの学習ドメインの問題かがラベルで分かります</figcaption>
+            </figure>
+          </div>
+        </div>
 
-  <h2>こんな方におすすめです</h2>
-  <ul>
-    <li>SAP-C02の受験を控えており、通勤・通学などのすきま時間で問題演習を積みたい方</li>
-    <li>間違えた問題を「なんとなく復習」ではなく、間違えた理由ごとに整理して復習したい方</li>
-    <li>広告表示や複雑な設定に煩わされず、シンプルに演習だけしたい方</li>
-  </ul>
+        <div class="feature">
+          <div class="feature-body">
+            <h3>弱点が称号になる「伸びしろ番長」</h3>
+            <p>
+              タグ別・誤答理由別の弱点データをもとに、ちょっと笑える"二つ名"型の称号が表示されます。
+              もっとも伸びしろのある分野は「あなたの伸びしろ番長」として画面上部に表示され、タップで由来と
+              克服のための出題につながります。称号はご自身の画面にだけ表示され、共有するかどうか(X〔旧Twitter〕
+              への投稿)はご自身の操作で選べます。学習データそのものが外部に送信されることはありません。
+            </p>
+          </div>
+          <div class="feature-media">
+            <figure>
+              <div class="phone phone--sm">
+                <img src="./images/screenshot-bancho.png" alt="伸びしろ番長の画面。称号カード、カテゴリ別正答率のレーダーチャートと一覧、その他の二つ名が表示されている" width="1080" height="2400" loading="lazy" decoding="async">
+              </div>
+              <figcaption>カテゴリ別の正答率をレーダーチャートで確認できます</figcaption>
+            </figure>
+          </div>
+          <div class="feature-extra">
+            <figure>
+              <img class="shot" src="./images/detail-bancho-card.png" alt="伸びしろ番長の称号カード。「あなたの伸びしろ番長 オンデマンド富豪」と、由来となった正答率が書かれている" width="1005" height="406" loading="lazy" decoding="async">
+              <figcaption>称号カード。Xへ共有する場合は、この画像が生成されます(共有するかどうかはご自身の操作で選べます)</figcaption>
+            </figure>
+          </div>
+        </div>
 
-  <h2>現在の提供状況</h2>
-  <ul>
-    <li>対応OS: Android</li>
-    <li>提供形態: v1(初回リリース版)</li>
-    <li>通信: 学習・演習は端末内保存のデータで完結し、オフラインでもご利用いただけます</li>
-    <li>収録問題: v1では、本試験1回分に相当する問題を、出題ドメインの配点比率に沿って収録する予定です</li>
-  </ul>
-  <p class="note">現在準備中(近日公開)です。公開後、Google Playのリンクを本ページに掲載します。</p>
+      </div>
+    </div>
+  </section>
 
-  <h2>プライバシーポリシー・利用規約</h2>
-  <p>Dojoruのプライバシーポリシーは <a href="./privacy.html">こちら</a>、利用規約は <a href="./terms.html">こちら</a> でご確認いただけます。</p>
+  <section>
+    <div class="wrap wrap--narrow">
+      <h2>こんな方におすすめです</h2>
+      <ul>
+        <li>SAP-C02の受験を控えており、通勤・通学などのすきま時間で問題演習を積みたい方</li>
+        <li>間違えた問題を「なんとなく復習」ではなく、間違えた理由ごとに整理して復習したい方</li>
+        <li>広告表示や複雑な設定に煩わされず、シンプルに演習だけしたい方</li>
+      </ul>
 
-  <h2>Dojoruについて(免責事項)</h2>
-  <ul>
-    <li>Dojoruは、Amazon Web Services, Inc. とは無関係の非公式の学習教材です。「AWS」および関連する商標は Amazon Web Services, Inc. またはその関連会社の商標です。</li>
-    <li>Dojoruは、Tutorials Dojo社が提供する「AWS SAP-C02 Dojo Exam」その他の同社製品とは無関係の、独立した別プロダクトです。名称に共通する語(Dojo/道場)がありますが、両者の間に提携・許諾・協力関係はありません。</li>
-    <li>出題内容はAWS資格試験の公式ガイド・公開情報に基づき独自に作成したものであり、本試験問題の再現・市販問題集の複製ではありません。</li>
-  </ul>
+      <h2 style="margin-top:44px;">現在の提供状況</h2>
+      <ul>
+        <li>対応OS: Android</li>
+        <li>提供形態: v1(初回リリース版)</li>
+        <li>通信: 学習・演習は端末内保存のデータで完結し、オフラインでもご利用いただけます</li>
+        <li>収録問題: v1では、本試験1回分に相当する問題を、出題ドメインの配点比率に沿って収録する予定です</li>
+      </ul>
+      <p class="note">現在準備中(近日公開)です。公開後、Google Playのリンクを本ページに掲載します。</p>
 
-  <h2>お問い合わせ</h2>
-  <p>
-    お問い合わせ先: <span class="email" data-user="dojoru.admin" data-domain="gmail.com">(メールアドレスを表示するにはJavaScriptを有効にしてください)</span>
-  </p>
+      <h2 style="margin-top:44px;">プライバシーポリシー・利用規約</h2>
+      <p>Dojoruのプライバシーポリシーは <a href="./privacy.html">こちら</a>、利用規約は <a href="./terms.html">こちら</a> でご確認いただけます。</p>
+
+      <h2 style="margin-top:44px;">Dojoruについて(免責事項)</h2>
+      <ul>
+        <li>Dojoruは、Amazon Web Services, Inc. とは無関係の非公式の学習教材です。「AWS」および関連する商標は Amazon Web Services, Inc. またはその関連会社の商標です。</li>
+        <li>Dojoruは、Tutorials Dojo社が提供する「AWS SAP-C02 Dojo Exam」その他の同社製品とは無関係の、独立した別プロダクトです。名称に共通する語(Dojo/道場)がありますが、両者の間に提携・許諾・協力関係はありません。</li>
+        <li>出題内容はAWS資格試験の公式ガイド・公開情報に基づき独自に作成したものであり、本試験問題の再現・市販問題集の複製ではありません。</li>
+      </ul>
+
+      <h2 style="margin-top:44px;">お問い合わせ</h2>
+      <p>
+        お問い合わせ先: <span class="email" data-user="dojoru.admin" data-domain="gmail.com">(メールアドレスを表示するにはJavaScriptを有効にしてください)</span><br>
+        X(旧Twitter): <a href="https://x.com/dojoru2026" target="_blank" rel="noopener noreferrer">@dojoru2026</a>
+      </p>
+    </div>
+  </section>
 
   <footer>
-    Dojoru は Amazon Web Services, Inc. とは無関係の非公式教材です。
+    <div class="wrap">
+      Dojoru は Amazon Web Services, Inc. とは無関係の非公式教材です。
+    </div>
   </footer>
 </main>
 <script>
